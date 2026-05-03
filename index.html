@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>篠ノ井メディアプレイヤー | Shinonoi Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #001f3f; /* 深みのある紺色 */
+            --accent-yellow: #ffcc00; /* 鉄道標識の黄色 */
+            --text-white: #f8f9fa;
+            --bg-dark: #0a0e14;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 背景装飾：鉄道の軌道をイメージしたライン */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,31,63,0.4) 0%, rgba(10,14,20,1) 100%);
+            z-index: -1;
+        }
+
+        /* ヒーローセクション */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-logo {
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 2.5rem;
+            color: #ccc;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background-color: var(--accent-yellow);
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+            border: 2px solid var(--accent-yellow);
+        }
+
+        .btn-download:hover {
+            background-color: transparent;
+            color: var(--accent-yellow);
+            transform: translateY(-3px);
+        }
+
+        /* 特徴紹介 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--accent-yellow);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        section {
+            padding: 100px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-yellow);
+            transition: transform 0.3s;
+            text-align: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-yellow);
+        }
+
+        /* 動作環境 */
+        .specs-table {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: var(--card-bg);
+        }
+
+        .specs-table td {
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .specs-label {
+            font-weight: bold;
+            background: rgba(255,255,255,0.05);
+            width: 40%;
+        }
+
+        /* フッター */
+        footer {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #05070a;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* アニメーション用 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 1s all ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            header { height: auto; padding: 100px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="hero-logo">SHINONOI MEDIA PLAYER</div>
+        <h1>篠ノ井メディアプレイヤー</h1>
+        <p class="tagline">鉄道ファンのための、究極の多機能メディアプレイヤー。</p>
+        <a href="#download" class="btn-download">無料ダウンロード (Win用 .exe)</a>
+    </header>
+
+    <section id="features">
+        <h2 class="section-title">FEATURES</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <h3>シームレスな再生体験</h3>
+                <p>YouTubeモードとローカル動画再生を瞬時に切り替え。あなたのライブラリをひとつの場所で管理できます。</p>
+            </div>
+            <div class="feature-card fade-in">
+                <h3>100以上の搭載機能</h3>
+                <p>音楽再生、プレイリスト管理、各種エフェクトなど、プレイヤーの枠を超えた圧倒的な多機能性を実現。</p>
+            </div>
+            <div class="feature-card fade-in">
+                <h3>Electronによる高速動作</h3>
+                <p>モダンな技術スタックを採用。Windowsデスクトップ環境で最適化されたパフォーマンスを提供します。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="spec">
+        <h2 class="section-title">REQUIREMENTS</h2>
+        <table class="specs-table fade-in">
+            <tr>
+                <td class="specs-label">対応OS</td>
+                <td>Windows 10 / 11 (64bit推奨)</td>
+            </tr>
+            <tr>
+                <td class="specs-label">制作</td>
+                <td>篠ノ井乗務区</td>
+            </tr>
+            <tr>
+                <td class="specs-label">ライセンス</td>
+                <td>フリーウェア</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="download" style="background: rgba(255,204,0,0.05);">
+        <h2 class="section-title">DOWNLOAD</h2>
+        <p style="margin-bottom: 2rem;">最新バージョンをお試しください。</p>
+        <div class="fade-in">
+            <p style="font-weight: bold; font-size: 1.2rem;">Version 1.0.1</p>
+            <p style="color: #888; margin-bottom: 1.5rem;">ShinonoiPlayer_Setup_1.0.1.exe</p>
+            <a href="#" class="btn-download">Windows版をダウンロード</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 篠ノ井乗務区</p>
+        <p style="margin-top: 10px; font-size: 0.7rem;">Created with Electron. Built for Rail Fans.</p>
+    </footer>
+
+    <script>
+        // スクロール時に要素をフェードインさせる簡単なスクリプト
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
