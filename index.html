@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shinonoi Player | 篠ノ井メディアプレイヤー</title>
+    <title>Shinonoi Player | 篠ノ井メディアプレイヤー公式サイト</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +11,7 @@
             --accent: #fbbf24;
             --text-main: #f1f5f9;
             --text-sub: #94a3b8;
-            --glass: rgba(30, 41, 59, 0.8);
+            --glass: rgba(30, 41, 59, 0.9);
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -25,81 +25,54 @@
             overflow-x: hidden;
         }
 
-        /* --- ナビゲーション & ハンバーガー --- */
+        /* ナビゲーション */
         nav {
-            position: fixed;
-            top: 0; width: 100%; height: 70px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: var(--glass); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
-        .logo { font-weight: 900; font-size: 1.2rem; cursor: pointer; }
-
+        .logo { font-weight: 900; font-size: 1.2rem; cursor: pointer; color: var(--accent); text-decoration: none; }
         .nav-links { display: flex; list-style: none; gap: 2rem; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .hamburger span { width: 25px; height: 2px; background: var(--text-main); }
 
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; z-index: 1001; }
-        .hamburger span { width: 25px; height: 2px; background: var(--text-main); transition: var(--transition); }
-
-        /* --- 広告スペース --- */
-        .ad-space {
-            width: 100%; max-width: 728px; height: 90px;
-            background: rgba(255,255,255,0.03);
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #334155;
-            font-size: 0.8rem; color: var(--text-sub);
-        }
-
-        /* --- セクション表示管理 --- */
-        .page-content { display: none; padding-top: 100px; min-height: 100vh; }
+        /* ページ管理 */
+        .page-content { display: none; padding-top: 80px; min-height: 100vh; animation: fadeIn 0.5s ease; }
         .page-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- ヒーロー & アニメーション --- */
-        .hero {
-            height: 80vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-        }
-        .hero h1 { font-size: clamp(2rem, 8vw, 4rem); margin-bottom: 1rem; opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; }
-        
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        /* ヒーローセクション */
+        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; margin-bottom: 1rem; }
+        .hero p { color: var(--text-sub); font-size: 1.2rem; margin-bottom: 2rem; max-width: 700px; }
 
+        /* 広告スペース */
+        .ad-container { width: 100%; max-width: 728px; height: 90px; background: rgba(255,255,255,0.03); margin: 30px auto; border: 1px dashed #334155; display: flex; align-items: center; justify-content: center; color: #475569; font-size: 0.8rem; }
+
+        /* ボタン */
         .btn {
-            padding: 1rem 2.5rem; background: var(--accent); color: var(--primary);
-            text-decoration: none; font-weight: bold; border-radius: 50px;
-            transition: var(--transition); border: none; cursor: pointer;
+            display: inline-block; padding: 1.2rem 3rem; background: var(--accent); color: var(--primary);
+            text-decoration: none; font-weight: 900; border-radius: 8px; transition: var(--transition);
+            border: none; cursor: pointer; font-size: 1.1rem;
         }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4); }
 
-        /* --- 法的文書・規約 --- */
-        .legal-text { max-width: 800px; margin: 0 auto; padding: 40px 20px; background: rgba(255,255,255,0.02); border-radius: 12px; }
-        .legal-text h2 { margin: 2rem 0 1rem; color: var(--accent); }
-        .legal-text p, .legal-text li { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 1rem; }
+        /* ガイドセクション */
+        .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 60px 5%; }
+        .step-card { background: rgba(255,255,255,0.03); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .step-num { font-size: 3rem; font-weight: 900; color: var(--accent); margin-bottom: 1rem; opacity: 0.5; }
 
-        /* --- 404ページ --- */
-        #page-404 { text-align: center; display: none; flex-direction: column; justify-content: center; height: 100vh; }
-        #page-404 h1 { font-size: 8rem; color: var(--accent); }
+        /* リーガル・404テキスト */
+        .container-narrow { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .legal-box { background: rgba(255,255,255,0.02); padding: 40px; border-radius: 12px; }
+        .legal-box h2 { color: var(--accent); margin: 2rem 0 1rem; border-left: 4px solid var(--accent); padding-left: 15px; }
 
-        /* --- フッター --- */
-        footer { padding: 40px; text-align: center; border-top: 1px solid #1e293b; margin-top: 50px; font-size: 0.8rem; color: var(--text-sub); }
+        footer { padding: 60px; text-align: center; border-top: 1px solid #1e293b; color: var(--text-sub); font-size: 0.8rem; }
 
-        /* モバイル対応 */
         @media (max-width: 768px) {
-            .nav-links {
-                position: fixed; right: -100%; top: 0; height: 100vh; width: 70%;
-                background: var(--primary); flex-direction: column; padding: 100px 40px;
-                transition: 0.3s; box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            }
-            .nav-links.open { right: 0; }
+            .nav-links { display: none; } /* 簡略化のためモバイル時はメニュー隠し */
             .hamburger { display: flex; }
         }
     </style>
@@ -107,91 +80,89 @@
 <body>
 
     <nav>
-        <div class="logo" onclick="showPage('main')">SHINONOI PLAYER</div>
-        <div class="hamburger" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
+        <a href="#" class="logo" onclick="showPage('main')">SHINONOI PLAYER</a>
         <ul class="nav-links">
-            <li><a href="#features" onclick="showPage('main')">機能</a></li>
-            <li><a href="#download" onclick="showPage('main')">ダウンロード</a></li>
+            <li><a href="#guide" onclick="showPage('main')">使い方</a></li>
             <li><a href="#" onclick="showPage('terms')">利用規約</a></li>
             <li><a href="#" onclick="showPage('privacy')">プライバシー</a></li>
         </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
     </nav>
 
-    <main id="page-main" class="page-content active">
+    <div id="page-main" class="page-content active">
         <section class="hero">
-            <div class="ad-space">広告スペース（728x90）</div>
-            <h1>次世代のマルチ再生体験。</h1>
-            <p style="color: var(--text-sub); margin-bottom: 2rem;">100以上の機能が、あなたのメディアライフを加速させる。</p>
-            <a href="#download" class="btn">今すぐ無料で開始</a>
+            <div class="ad-container">スポンサー広告</div>
+            <h1>Shinonoi Player</h1>
+            <p>YouTube再生から音楽管理まで、100以上の機能を備えた<br>Windows専用・究極の多機能メディアプレイヤー。</p>
+            <a href="https://github.com/shinorail/shinonoi-player/releases/download/v1.0.0/ShinonoiPlayer_Setup_1.0.0.exe" download class="btn">
+                無料ダウンロード (v1.0.0)
+            </a>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #64748b;">※Windows 10/11対応。実行時に警告が出た場合は「詳細情報」→「実行」を選択してください。</p>
         </section>
 
-        <section id="features" style="padding: 100px 5%;">
-            <h2 style="text-align: center; margin-bottom: 50px;">主な機能</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;">
-                    <h3 style="color: var(--accent);">YouTube & Local</h3>
-                    <p>オンラインとオフラインの垣根を超えたシームレスな再生環境を提供。</p>
+        <section id="guide">
+            <h2 style="text-align: center; font-size: 2rem; margin-top: 40px;">導入・ガイド</h2>
+            <div class="guide-grid">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <h3>ダウンロード</h3>
+                    <p>上のボタンをクリックしてインストーラー(.exe)を保存します。GitHub経由の安全なファイルです。</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;">
-                    <h3 style="color: var(--accent);">100+ Functions</h3>
-                    <p>イコライザー、ブックマーク、再生速度変更など、プロ仕様のツール群。</p>
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <h3>インストール</h3>
+                    <p>ダウンロードしたファイルを開き、画面の指示に従ってください。数秒で完了します。</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <h3>使用開始</h3>
+                    <p>デスクトップのアイコンから起動。YouTubeモードやローカル再生を自由にお楽しみください。</p>
                 </div>
             </div>
+            <div class="ad-container">スポンサー広告</div>
         </section>
-
-        <section id="download" style="text-align: center; padding: 100px 5%;">
-            <div class="ad-space">広告スペース</div>
-            <h2>最新バージョンをダウンロード</h2>
-            <p>Version 1.0.1 (Windows版)</p>
-            <a href="#" class="btn" style="margin-top: 20px; display: inline-block;">Installer.exe を入手</a>
-        </section>
-    </main>
+    </div>
 
     <div id="page-terms" class="page-content">
-        <div class="legal-text">
-            <h1>利用規約</h1>
-            <h2>第1条 著作権</h2>
-            <p>本ソフトウェア「篠ノ井メディアプレイヤー」に関する一切の著作権は、**篠ノ井乗務区**に帰属します。</p>
-            <h2>第2条 使用許諾</h2>
-            <p>ユーザーは、本ソフトウェアを非営利目的および個人の範囲内で自由に使用、複製、配布することができます。ただし、リバースエンジニアリング、改変、および有料での転売を禁じます。</p>
-            <h2>第3条 免責事項</h2>
-            <p>本ソフトウェアの使用によって生じた直接的、間接的な損害について、作者は一切の責任を負いません。自己責任においてご利用ください。</p>
-            <button class="btn" onclick="showPage('main')">戻る</button>
+        <div class="container-narrow">
+            <div class="legal-box">
+                <h1>利用規約</h1>
+                <h2>1. 著作権について</h2>
+                <p>本ソフトウェア「篠ノ井メディアプレイヤー（Shinonoi Player）」に関する一切の著作権は、<strong>篠ノ井乗務区</strong>に帰属します。</p>
+                <h2>2. ライセンスと配布</h2>
+                <p>ユーザーは、本ソフトウェアを個人の範囲で自由に使用・複製・再配布できます。ただし、営利目的での無断販売、リバースエンジニアリング、改変した状態での二次配布は固く禁じます。</p>
+                <h2>3. 免責事項</h2>
+                <p>本ソフトの使用により生じたいかなる損害についても、開発者は一切の責任を負いません。自己責任でご利用ください。</p>
+                <button class="btn" style="margin-top: 30px;" onclick="showPage('main')">ホームに戻る</button>
+            </div>
         </div>
     </div>
 
     <div id="page-privacy" class="page-content">
-        <div class="legal-text">
-            <h1>プライバシーポリシー</h1>
-            <p>篠ノ井乗務区（以下、当区）は、本アプリにおけるユーザーの個人情報の取り扱いについて、以下の通り定めます。</p>
-            <h2>1. 情報の収集</h2>
-            <p>本アプリは、ユーザーの個人情報を意図的に収集・送信することはありません。YouTubeモードでの閲覧履歴は、各プラットフォームの仕様に準じます。</p>
-            <h2>2. ライセンス</h2>
-            <p>本アプリはフリーウェアとして提供されます。ライセンスの形態は自由ですが、ソースコードの権利は当区にあります。</p>
-            <button class="btn" onclick="showPage('main')">戻る</button>
+        <div class="container-narrow">
+            <div class="legal-box">
+                <h1>プライバシーポリシー</h1>
+                <p>本アプリはユーザーの個人情報を収集・外部送信することはありません。YouTubeモードの利用においては、Googleのプライバシーポリシーが適用されます。</p>
+                <button class="btn" style="margin-top: 30px;" onclick="showPage('main')">ホームに戻る</button>
+            </div>
         </div>
     </div>
 
     <div id="page-404" class="page-content">
-        <h1>404</h1>
-        <p>指定された信号機（ページ）は見つかりませんでした。</p>
-        <button class="btn" onclick="showPage('main')" style="margin-top: 20px;">ホームへ戻る</button>
+        <div class="hero">
+            <h1 style="font-size: 8rem; color: var(--accent);">404</h1>
+            <p>指定されたページは線路外（存在しない）です。</p>
+            <button class="btn" onclick="showPage('main')">安全な場所へ戻る</button>
+        </div>
     </div>
 
     <footer>
         <p>© 2026 篠ノ井乗務区 | Shinonoi Player</p>
-        <p style="margin-top: 10px; opacity: 0.5;">All Rights Reserved.</p>
+        <p style="opacity: 0.5; margin-top: 10px;">Created by Shinonoi Jomuku. No Rights Reserved except Copyright.</p>
     </footer>
 
     <script>
-        // ハンバーガーメニュー制御
-        function toggleMenu() {
-            document.querySelector('.nav-links').classList.toggle('open');
-        }
-
-        // ページ切り替え（SPA風の挙動）
+        // ページ切り替え関数
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
@@ -201,12 +172,12 @@
             } else {
                 document.getElementById('page-404').classList.add('active');
             }
-            document.querySelector('.nav-links').classList.remove('open');
         }
 
-        // 存在しないハッシュへの対応（簡易404シミュレーション）
-        window.addEventListener('hashchange', () => {
-            if(window.location.hash === "#notfound") showPage('404');
+        // ダウンロード完了後のメッセージ（任意）
+        const dlBtn = document.querySelector('a[download]');
+        dlBtn.addEventListener('click', () => {
+            console.log("Download started...");
         });
     </script>
 </body>
